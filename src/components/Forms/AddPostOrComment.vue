@@ -1,30 +1,29 @@
 <template>
-    <form>
+    <form @submit.prevent="add">
         <label v-if="showLabel" :for="'text' + _uid"> {{ textRequest }}</label>
         <input v-model="textValue" :id="'text' + _uid" type="text" :placeholder="textRequest" />
-        <button @click.prevent="submitted">submit</button>
+        <button type="submit">submit</button>
     </form>
 </template>
 
 <script>
 export default {
+    props: {
+        textRequest: { type: String, default: "" },
+        showLabel: { type: Boolean, default: false },
+    },
     data() {
         return {
             textValue: "",
             _uid: "",
         };
     },
-    props: {
-        textRequest: { type: String, default: "" },
-        showLabel: { type: Boolean, default: false },
-    },
     methods: {
-        submitted() {
+        add() {
             this.$emit("text-added", this.textValue);
             this.textValue = "";
         },
     },
-    emits: ["text-added"],
 };
 </script>
 

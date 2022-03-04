@@ -1,13 +1,13 @@
 <template>
     <div>
         <header v-if="$slots.header">
-            <slot name="header"> </slot>
+            <slot name="header"></slot>
         </header>
         <slot></slot>
         <footer v-if="$slots.footer && expandable">
             <a href="#" @click.prevent="toggleDetails" class="footer-elements">
-                {{ messageValue }}</a
-            >
+                {{ detailsText }}
+            </a>
             <slot name="footer" v-if="expanded"></slot>
         </footer>
         <slot name="actions"></slot>
@@ -27,9 +27,9 @@ export default {
         };
     },
     computed: {
-        messageValue() {
-            if (!this.expanded) return "Show";
-            return "Hide";
+        detailsText() {
+            if (!this.expanded) return "Show comments";
+            return "Hide comments";
         },
     },
     methods: {
