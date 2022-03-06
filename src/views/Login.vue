@@ -5,19 +5,20 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions } from 'vuex';
+
 export default {
-    methods: {
-        ...mapActions({ login: "auth/login" }),
-        async doLogin() {
-            try {
-                await this.login();
-                this.$router.push({ name: "Posts" });
-            } catch (error) {
-                console.log(error);
-            }
-        },
+  methods: {
+    ...mapActions({ login: 'auth/login' }),
+    async doLogin() {
+      try {
+        await this.login();
+        this.$router.push({ name: 'Posts' });
+      } catch (error) {
+        console.log(error);
+      }
     },
+  },
 };
 </script>
 

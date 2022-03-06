@@ -1,8 +1,20 @@
 <template>
     <form @submit.prevent="add">
-        <label v-if="showLabel" :for="'text' + _uid"> {{ textRequest }}</label>
-        <input v-model="textValue" :id="'text' + _uid" type="text" :placeholder="textRequest" />
-        <button type="submit">submit</button>
+        <div class="flex flex-col">
+            <label v-if="showLabel" :for="'text' + _uid" :class="[...classes.label]">
+                {{ textRequest }}
+            </label>
+            <div>
+                <input
+                    v-model="textValue"
+                    :id="'text' + _uid"
+                    type="text"
+                    :placeholder="textRequest"
+                    class="outline-none py-1 px-2 text-md border-2 rounded-md w-4/5"
+                />
+                <button type="submit" class="w-1/5" :disabled="!disabledButton">SUBMIT</button>
+            </div>
+        </div>
     </form>
 </template>
 
@@ -16,7 +28,15 @@ export default {
         return {
             textValue: "",
             _uid: "",
+            classes: {
+                label: ["text-left", "text-lx", "font-mono", "pb-2", "uppercase", "font-bold"],
+            },
         };
+    },
+    computed: {
+        disabledButton() {
+            return !!this.textValue;
+        },
     },
     methods: {
         add() {
@@ -27,28 +47,4 @@ export default {
 };
 </script>
 
-<style scoped>
-label {
-    padding-right: 1rem;
-    display: block;
-}
-button {
-    margin-top: 1rem;
-    width: 10%;
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
-    background-color: darksalmon;
-    padding: 8px;
-}
-input {
-    box-sizing: border-box;
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
-    width: 80%;
-    padding: 8px 20px;
-}
-input:focus {
-    outline: 0;
-    background-color: wheat;
-}
-</style>
+<style scoped></style>

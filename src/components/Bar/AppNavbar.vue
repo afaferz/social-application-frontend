@@ -21,57 +21,58 @@
     </div>
 </template>
 <script>
-import { computed } from "vue";
-import { useStore, mapActions } from "vuex";
-export default {
-    setup() {
-        const store = useStore();
-        const loggedIn = computed(() => store.getters["auth/IS_LOGGED_IN"]);
+import { computed } from 'vue';
+import { useStore, mapActions } from 'vuex';
 
-        return {
-            loggedIn,
-        };
-    },
-    data() {
-        return {
-            links: [
-                {
-                    visibleLoggedOut: true,
-                    name: "Posts",
-                    to: { name: "Posts" },
-                },
-                {
-                    visibleLoggedOut: false,
-                    name: "User",
-                    to: {
-                        name: "User",
-                        params: {
-                            userId: this.$store.getters["auth/CURRENT_USER"].username,
-                        },
-                    },
-                },
-            ],
-        };
-    },
-    computed: {
-        enabledLinks() {
-            return this.links.filter((link) => link.visibleLoggedOut || this.loggedIn);
+export default {
+  setup() {
+    const store = useStore();
+    const loggedIn = computed(() => store.getters['auth/IS_LOGGED_IN']);
+
+    return {
+      loggedIn,
+    };
+  },
+  data() {
+    return {
+      links: [
+        {
+          visibleLoggedOut: true,
+          name: 'Posts',
+          to: { name: 'Posts' },
         },
-    },
-    methods: {
-        ...mapActions({
-            login: "auth/login",
-            logout: "auth/logout",
-        }),
-        async doLogout() {
-            try {
-                await this.logout();
-                this.$router.push({ name: "Login" });
-            } catch (error) {
-                console.log(error);
-            }
+        {
+          visibleLoggedOut: false,
+          name: 'User',
+          to: {
+            name: 'User',
+            params: {
+              userId: this.$store.getters['auth/CURRENT_USER'].username,
+            },
+          },
         },
+      ],
+    };
+  },
+  computed: {
+    enabledLinks() {
+      return this.links.filter((link) => link.visibleLoggedOut || this.loggedIn);
     },
+  },
+  methods: {
+    ...mapActions({
+      login: 'auth/login',
+      logout: 'auth/logout',
+    }),
+    async doLogout() {
+      try {
+        await this.logout();
+        this.$router.push({ name: 'Login' });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
 };
 </script>
 <style scoped>

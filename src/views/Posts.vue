@@ -1,13 +1,15 @@
 <template>
     <div class="posts">
         <h1>All Posts</h1>
-        <AddPostOrComment
-            v-if="isLoggedIn"
-            textRequest="Add Post"
-            :showLabel="true"
-            @text-added="addPost"
-        />
-        <PostList :posts="posts" />
+        <div class="container mx-auto">
+            <AddPostOrComment
+                v-if="isLoggedIn"
+                textRequest="Add Post"
+                :showLabel="true"
+                @text-added="addPost"
+            />
+            <PostList :posts="posts" />
+        </div>
     </div>
 </template>
 <script>
@@ -15,6 +17,7 @@ import { computed } from "vue";
 import { useStore } from "vuex";
 import PostList from "@/components/Posts/PostList.vue";
 import AddPostOrComment from "@/components/Forms/AddPostOrComment.vue";
+
 export default {
     name: "Posts",
     components: { PostList, AddPostOrComment },
@@ -36,7 +39,7 @@ export default {
                 username: this.$store.getters["auth/CURRENT_USER"].username,
                 post: text,
             };
-            this.$store.dispatch('posts/addPost', post)
+            this.$store.dispatch("posts/addPost", post);
         },
     },
 };

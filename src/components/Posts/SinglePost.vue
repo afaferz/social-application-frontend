@@ -1,12 +1,14 @@
 <template>
-    <BaseCard :expandable="post.comments && post.comments.length > 0">
+    <BaseCard :expandable="post.comments && post.comments.length > 0" class="my-4 min-h-[6em] h-auto">
         <template #header>
             <router-link :to="linkUser(post.username)">
                 <h3>{{ postTitle(post) }}</h3>
             </router-link>
             <button class="delete-button" @click.prevent="deletePost(post)">Delete</button>
         </template>
-        {{ post.post }}
+        <p class="text-justify py-2">
+            {{ post.post }}
+        </p>
         <template #footer>
             <base-card v-for="comment in post.comments" :key="comment.id" :expandable="false">
                 <template #header>
@@ -31,6 +33,7 @@ import { computed } from "vue";
 import { useStore } from "vuex";
 import BaseCard from "@/components/Base/BaseCard.vue";
 import AddPostOrComment from "@/components/Forms/AddPostOrComment.vue";
+
 export default {
     components: {
         BaseCard,

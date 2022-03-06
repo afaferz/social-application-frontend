@@ -6,27 +6,28 @@
     </div>
 </template>
 <script>
-import { computed } from "vue";
-import { useStore } from "vuex";
-import PostList from "@/components/Posts/PostList.vue";
+import { computed } from 'vue';
+import { useStore } from 'vuex';
+import PostList from '@/components/Posts/PostList.vue';
+
 export default {
-    name: "User",
-    components: { PostList },
-    props: {
-        userId: {
-            type: String,
-            default: "",
-        },
+  name: 'User',
+  components: { PostList },
+  props: {
+    userId: {
+      type: String,
+      default: '',
     },
-    setup(props) {
-        const store = useStore();
-        const userId = props.userId;
-        const user = store.getters["users/GET_USER"](userId);
-        const userPosts = computed(() => store.getters["posts/USER_POSTS"](user.username));
-        return {
-            user,
-            userPosts,
-        };
-    },
+  },
+  setup(props) {
+    const store = useStore();
+    const { userId } = props;
+    const user = store.getters['users/GET_USER'](userId);
+    const userPosts = computed(() => store.getters['posts/USER_POSTS'](user.username));
+    return {
+      user,
+      userPosts,
+    };
+  },
 };
 </script>

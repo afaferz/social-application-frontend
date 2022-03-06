@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <header v-if="$slots.header">
+    <div class="p-4">
+        <header v-if="$slots.header" class="text-blue-600 flex justify-between items-center">
             <slot name="header"></slot>
         </header>
         <slot></slot>
@@ -15,28 +15,28 @@
 </template>
 <script>
 export default {
-    props: {
-        expandable: {
-            type: Boolean,
-            default: false,
-        },
+  props: {
+    expandable: {
+      type: Boolean,
+      default: false,
     },
-    data() {
-        return {
-            expanded: false,
-        };
+  },
+  data() {
+    return {
+      expanded: false,
+    };
+  },
+  computed: {
+    detailsText() {
+      if (!this.expanded) return 'Show comments';
+      return 'Hide comments';
     },
-    computed: {
-        detailsText() {
-            if (!this.expanded) return "Show comments";
-            return "Hide comments";
-        },
+  },
+  methods: {
+    toggleDetails() {
+      this.expanded = !this.expanded;
     },
-    methods: {
-        toggleDetails() {
-            this.expanded = !this.expanded;
-        },
-    },
+  },
 };
 </script>
 <style scoped>
@@ -45,24 +45,20 @@ export default {
     margin: 2rem auto;
     border-radius: 12px;
 }
-.footer-elements {
+/* .footer-elements {
     display: flex;
     float: left;
-}
-header {
+} */
+/* header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: brown;
-}
+} */
 div {
-    margin: 2rem auto;
+    /* margin: 2rem auto; */
     max-width: 50rem;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-    padding: 1rem;
-}
-footer {
-    padding: 1rem;
 }
 </style>
